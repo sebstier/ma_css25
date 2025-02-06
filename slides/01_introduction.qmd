@@ -58,7 +58,7 @@ NEW MENTIMETER CODE
 
 1. Logistics
 
-2. *R*: Warmup session, basics & introduction to *tidyverse*
+2. *R*: Warmup session and introduction to the *tidyverse*
 
 3. Introduction to Computational Social Science
 
@@ -210,7 +210,7 @@ Meyer, J. G., Urbanowicz, R. J., Martin, P. C. N., et al. (2023). ChatGPT and la
 
 ::::
 
-# 2. Warmup session in R, introduction to the *tidyverse* {background-color="#58748F"} 
+# 2. Warmup session in R and introduction to the *tidyverse* {background-color="#58748F"} 
 
 
 ## *tidyverse*: the Swiss Army knife of R 
