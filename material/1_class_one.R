@@ -1,12 +1,13 @@
 #' class: "Computational Social Science and Digital Behavioral Data, University of Mannheim"
 #' title: "Introduction"
 #' author: "Sebastian Stier"
-#' lesson: 2
+#' class: 1
 #' institute: University of Mannheim & GESIS
-#' date: "2024-09-11"
+#' date: "2025-02-12"
 
 
 # Exercise 0: Install [R](https://cran.rstudio.com) and [RStudio Desktop](https://posit.co/downloads/) ----
+# see also script 0_basics.R
 
 # Exercise 1: Setup and R packages ----
 ## a. Create a folder for the R scripts and materials of this class and 
