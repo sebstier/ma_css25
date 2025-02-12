@@ -13,22 +13,51 @@
 ## a. Create a folder for the R scripts and materials of this class and 
       # set the R working directory to this folder.
 getwd()
-setwd(dirname(rstudioapi::getActiveDocumentContext()$path)) # not needed if you have a 
-# project that will set the wd for you
+setwd("YOURPATH")
+setwd(dirname(rstudioapi::getActiveDocumentContext()$path)) 
+
+# wd not needed if you create a project that will set the wd for you
 
 # New project top left File -> New Project
 
 ## b. Create subfolders "data" and "plots"
-
+dir.create("data")
+dir.create("plots")
 
 ## c. Install the R package *tidyverse*. 
+#install.packages("tidyverse")
+library(tidyverse)
+dplyr::select()
+?select
+# e.g. select a variable
+starwars
+names(starwars)
+select(starwars, height)
+select(starwars, c(height, mass, sex))
+starwars %>% 
+  #select(height, mass)
+  select(c(height, mass)) %>% 
+  mutate(new_var = height+mass)
+
+starwars %>% 
+
+# how to get the pipe?
+# CTRL + SHIFT + M
+  
+# How to run code
+# CRTL + Enter
 
 ## d. Check the version of the *tidyverse* package
-packageVersion()
+packageVersion("dplyr")
+R.version
 
 ## e. List all your files in the working directory (folder) and the environment (top right)
-
-
+list.files()
+getwd()
+# create a test object
+test <- "test"
+starwars <- starwars
+ls()
 
 # Exercise 2: Transform a data frame into a tibble and name the differences between the two formats. ----
 # let's first install and load the gapminder dataset
