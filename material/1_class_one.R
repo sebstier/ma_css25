@@ -1,4 +1,4 @@
-#' class: "Computational Social Science and Digital Behavioral Data, University of Mannheim"
+#' course: "Computational Social Science and Digital Behavioral Data, University of Mannheim"
 #' title: "Introduction"
 #' author: "Sebastian Stier"
 #' class: 1
@@ -39,8 +39,6 @@ starwars %>%
   select(c(height, mass)) %>% 
   mutate(new_var = height+mass)
 
-starwars %>% 
-
 # how to get the pipe?
 # CTRL + SHIFT + M
   
@@ -65,7 +63,6 @@ ls()
 # How do R packages work?
 # The tidyverse contains all the packages we will use today
 # Hence ggplot2 and dplyr are ready to go after installing tidyverse
-
 names(gapminder)
 gapminder[, 1]
 gapminder %>% select(country)
