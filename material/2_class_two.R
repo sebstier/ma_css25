@@ -12,6 +12,8 @@
 # https://drive.google.com/file/d/1xRKHaP-QwACMydlDnyFPEaFdtskJuBa6/view
 library(tidyverse)
 list.files("data")
+df_trump <- read_csv("data/tweets_01-08-2021.csv")
+glimpse(df_trump)
 df_trump <- read_csv("data/tweets_01-08-2021.csv",
                      col_types = "ccllcddTl")
 # df_trump <- read.csv("data/tweets_01-08-2021.csv", 
@@ -19,9 +21,13 @@ df_trump <- read_csv("data/tweets_01-08-2021.csv",
 summary(df_trump)
 glimpse(df_trump)
 
-# Check if the tweet IDs are unique
-n_distinct(df_trump$id)
-nrow(df_trump)
+# Different data formats
+#read_csv
+write_rds(df_trump, "data/df_trump.rds")
+df_trump %>% 
+  write_rds("data/df_trump.rds")
+list.files("data")
+df_trump <- read_rds("data/df_trump.rds")
 
 
 # Use group_by() and summarize() to summarize the number of tweets per day
@@ -29,8 +35,20 @@ nrow(df_trump)
 # "group_by" groups columns by a grouping variable
 # "summarize" consolidates the mentioned column based on the grouping variable
 # into a single row
-
-
+df_trump %>% 
+  # Let's just create a copy of "date"
+  # mutate(day = date)
+  # Let's create a sum index of favorites and retweets
+  # mutate(sum_favs_rets = favorites+retweets)
+  mutate(day = as.Date(date)) %>% 
+  group_by(day) %>% 
+  summarise(sum_tweets = n(),
+            sum_favorites = sum(favorites),
+            mean_favorites = mean(favorites),
+            median_favorites = median(favorites)) %>% 
+  arrange(desc(sum_favorites))
+    
+# TODO continue here next time
 
 # Some basic text operations ----
 
