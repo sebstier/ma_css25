@@ -182,39 +182,151 @@
     "text": "References\n\n\n\n\nboyd, danah m., and Nicole B. Ellison. 2007. “Social Network Sites: Definition, History, and Scholarship.” Journal of Computer-Mediated Communication 13 (1): 210–30. https://doi.org/https://doi.org/10.1111/j.1083-6101.2007.00393.x.\n\n\nFiesler, Casey, and Nicholas Proferes. 2018. “\"Participant\"\" Perceptions of Twitter Research Ethics.” Social Media + Society 4 (1): 205630511876336. https://doi.org/10.1177/2056305118763366.\n\n\nNeethling, Johann. 2005. “Personality Rights: A Comparative Overview.” Comparative and International Law Journal of Southern Africa 38 (2): 210–45."
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Computational Social Science Methods and Digital Behavioral Data",
-    "section": "",
-    "text": "Lecturer\nSebastian Stier\nProfessor @ University of Mannheim & Scientific Director Department Computational Social Science @ GESIS\n\nAbout the course\nComputational Social Science (CSS) is a young research field at the intersection of various social science disciplines, data science and computer science. The goal is to gain new insights into society through large amounts of data and the direct observation of human behavior. CSS relies on two cornerstones: digital behavioral data, which can be collected from online platforms or sensors like smartphones, and computer science methods such as automated text analysis to create appropriate measures for social science research questions. In the course, students will get to know foundational studies, theories and methods used in the field of CSS. We will discuss infrastructural, ethical and legal challenges and how to navigate these to devise appropriate research designs in CSS.\nThe course will be application oriented. Students will familiarize themselves with the main applications of CSS methods and implement them in R. The range of applications will cover data management and preprocessing, the application of machine learning, data and results visualization, statistical data analysis and the validation of results. The hands-on application examples will cover questions from various research fields and different data types like social media data or web browsing histories. Equipped with this theoretical and methodological toolkit, students will develop their own CSS research projects.\nSchedule\n\n\n\n\n\n\n\n\n\n\n\n\n\nSeminar dates and topics\n\n\nDate\nTopics\nRequired reading\n\n\n\n\n12 February 2025  Room 212, B 6, 30-32 - E-F\n\nIntroduction and expectations\nFoundations of CSS\nGetting started in R\n\nLazer, D., & Radford, J. (2017). Data ex Machina: Introduction to Big Data. Annual Review of Sociology, 43(1), 19–39.\n\n\n26 February 2025  Room 212, B 6, 30-32 - E-F\n\nResearch ethics in CSS\nSocial media, web data and web scraping\nAPIs and web data collection\nData visualization\n\nFiesler, C., & Proferes, N. (2018). ‘Participant’ Perceptions of Twitter Research Ethics. Social Media + Society, 4(1).  Freelon, D. (2018). Computational Research in the Post-API Age. Political Communication, 35(4), 665–668.\n\n\n12 March 2025  Room A 104, B 6, 23-25 A\n\nPlatform-centered and user-centered data collections\nLinked surveys and DBD\nWeb tracking data\n\nTromble, R. (2021). Where Have All the Data Gone? A Critical Reflection on Academic Digital Research in the Post-API Age. Social Media + Society, 7(1).  Silber, H., et al. Linking Surveys and Digital Trace Data: Insights From two Studies on Determinants of Data Sharing Behaviour. Journal of the Royal Statistical Society Series A: Statistics in Society, 185(S2), S387–S407.\n\n\n26 March 2025  Room A 104, B 6, 23-25 A\n\nIntroduction to automated text analysis\nDictionary-based analysis\nValidation of model results\n\nSchwemmer, C., & Wieczorek, O. (2020). The Methodological Divide of Sociology: Evidence from Two Decades of Journal Publications. Sociology, 54(1), 3–21.  Bonikowski, B., Luo, Y., & Stuhler, O. (2022). Politics as Usual? Measuring Populism, Nationalism, and Authoritarianism in U.S. Presidential Campaigns (1952–2020) with Neural Language Models. Sociological Methods & Research, 51(4), 1721–1787.\n\n\n9 April 2025  Room A 104, B 6, 23-25 A\n\nMachine learning\nSupervised and unsupervised models\nLarge Language Models\n\nGilardi, F., Alizadeh, M., & Kubli, M. (2023). ChatGPT outperforms crowd workers for text-annotation tasks. PNAS, 120(30). \nReiss, M. V. (2023). Testing the Reliability of ChatGPT for Text Annotation and Classification: A Cautionary Remark. arXiv Preprint.\n\n\n30 April 2025  Room A 104, B 6, 23-25 A\n\nOpen science and reproducibility in CSS\nWriting reproducible research papers in R\nPresentations of thesis ideas (1st round)\n\nChan, C.- Hong, Schatto-Eckrodt, T., & Gruber, J. (2024). What makes computational communication science (ir)reproducible? Computational Communication Research, 6(1).  Sen, I., Flöck, F., Weller, K., Weiß, B., & Wagner, C. (2021). A Total Error Framework for Digital Traces of Human Behavior on Online Platforms. Public Opinion Quarterly, 85(S1), 399–422.\n\n\n14 May 2025  Room A 104, B 6, 23-25 A\n\nPresentations of thesis ideas (2nd round)\nCoding: troubleshooting\n\nBauer, P. C., & Landesvatter, C. (2023). Writing a reproducible paper with RStudio and Quarto. OSF Preprint.\n\n\n\n\n\n\n\nSoftware\n\nR\nA text editor, e.g. RStudio\nQuarto"
+    "objectID": "slides/03_designed_dbd.html#agenda-for-today",
+    "href": "slides/03_designed_dbd.html#agenda-for-today",
+    "title": "Designed Digital Data",
+    "section": "Agenda for today",
+    "text": "Agenda for today\n\nData visualization and working with text data in R\nDesigned digital data\nData wrangling and joining operations in R"
   },
   {
-    "objectID": "slides.html",
-    "href": "slides.html",
-    "title": "Computational Social Science and Digital Behavioral Data",
-    "section": "",
-    "text": "Date\n\n\nTitle\n\n\nAuthor\n\n\n\n\n\n\nFeb 12, 2025\n\n\nIntroduction\n\n\nSebastian Stier\n\n\n\n\nFeb 26, 2025\n\n\nResearch Ethics in CSS and Web Data Collection\n\n\nSebastian Stier\n\n\n\n\n\nNo matching items"
+    "objectID": "slides/03_designed_dbd.html#introduction-to-ggplot2",
+    "href": "slides/03_designed_dbd.html#introduction-to-ggplot2",
+    "title": "Designed Digital Data",
+    "section": "Introduction to ggplot2",
+    "text": "Introduction to ggplot2\n\n\n\n\nhttps://stulp.gmw.rug.nl/dataviz/ggplottheory.html\n\n\n\nggplot2 follows the “grammar of graphics”\nCheatsheet with the most relevant functions\nExtensions to ggplot2 that others built"
   },
   {
-    "objectID": "slides.html#slides",
-    "href": "slides.html#slides",
-    "title": "Computational Social Science and Digital Behavioral Data",
-    "section": "",
-    "text": "Date\n\n\nTitle\n\n\nAuthor\n\n\n\n\n\n\nFeb 12, 2025\n\n\nIntroduction\n\n\nSebastian Stier\n\n\n\n\nFeb 26, 2025\n\n\nResearch Ethics in CSS and Web Data Collection\n\n\nSebastian Stier\n\n\n\n\n\nNo matching items"
+    "objectID": "slides/03_designed_dbd.html#a-ggplot-figure",
+    "href": "slides/03_designed_dbd.html#a-ggplot-figure",
+    "title": "Designed Digital Data",
+    "section": "A ggplot figure",
+    "text": "A ggplot figure\n\n\n\n```{r}\n#| output-location: column\n#| code-line-numbers: \"6|7|8|9|10\"\n\nlibrary(ggplot2)\nmtcars %&gt;%\n  ggplot(aes(x = disp, y = mpg)) +\n  geom_point() +\n  geom_smooth(method = \"loess\", formula = \"y ~ x\") +\n  theme_minimal()\n```"
+  },
+  {
+    "objectID": "slides/03_designed_dbd.html#lets-get-started",
+    "href": "slides/03_designed_dbd.html#lets-get-started",
+    "title": "Designed Digital Data",
+    "section": "Let’s get started",
+    "text": "Let’s get started\n\nDownload file 2_class_two.R in https://sebastianstier.com/ma_css25/material.html"
+  },
+  {
+    "objectID": "slides/03_designed_dbd.html#linking-digital-behavioral-data-and-surveys",
+    "href": "slides/03_designed_dbd.html#linking-digital-behavioral-data-and-surveys",
+    "title": "Designed Digital Data",
+    "section": "Linking digital behavioral data and surveys",
+    "text": "Linking digital behavioral data and surveys\n\n\nResnick, P., Adar, E., & Lampe, C. (2015). What Social Media Data We Are Missing and How to Get It. The ANNALS of the American Academy of Political and Social Science, 659(1), 192–206."
+  },
+  {
+    "objectID": "slides/03_designed_dbd.html#how-to-actually-link-dbd-and-surveys",
+    "href": "slides/03_designed_dbd.html#how-to-actually-link-dbd-and-surveys",
+    "title": "Designed Digital Data",
+    "section": "How to actually link DBD and surveys?",
+    "text": "How to actually link DBD and surveys?\n\n\nStier, S., Breuer, J., Siegers, P., & Thorson, K. (2020). Integrating Survey Data and Digital Trace Data: Key Issues in Developing an Emerging Field. Social Science Computer Review, 38(5), 503–516.\n\n\n\n\\(\\rightarrow\\) The exact setup depends very much on the type of DBD and platform data that may be linked with surveys."
+  },
+  {
+    "objectID": "slides/03_designed_dbd.html#example-political-polarization",
+    "href": "slides/03_designed_dbd.html#example-political-polarization",
+    "title": "Designed Digital Data",
+    "section": "Example: political polarization",
+    "text": "Example: political polarization\n\n\nConover, M., Ratkiewicz, J., Francisco, M., Goncalves, B., Menczer, F., & Flammini, A. (2011). Political Polarization on Twitter. In Proceedings of the 5th International AAAI Conference on Web and Social Media (pp. 89–96). AAAI Publications."
+  },
+  {
+    "objectID": "slides/03_designed_dbd.html#political-polarization-on-twitter-better-conceptualized",
+    "href": "slides/03_designed_dbd.html#political-polarization-on-twitter-better-conceptualized",
+    "title": "Designed Digital Data",
+    "section": "Political polarization on Twitter, better conceptualized",
+    "text": "Political polarization on Twitter, better conceptualized\n\n\nBarberá, P., Jost, J. T., Nagler, J., Tucker, J. A., & Bonneau, R. (2015). Tweeting From Left to Right: Is Online Political Communication More Than an Echo Chamber? Psychological Science, 26(10), 1531–1542."
+  },
+  {
+    "objectID": "slides/03_designed_dbd.html#political-polarization-using-web-browsing-data",
+    "href": "slides/03_designed_dbd.html#political-polarization-using-web-browsing-data",
+    "title": "Designed Digital Data",
+    "section": "Political polarization, using web browsing data",
+    "text": "Political polarization, using web browsing data\n\n\n\n\nNelson, J. L., & Webster, J. G. (2017). The Myth of Partisan Selective Exposure: A Portrait of the Online Political News Audience. Social Media + Society, 3(3).\n\n\n\n\nGuess, A. M. (2021). (Almost) Everything in Moderation: New Evidence on Americans’ Online Media Diets. American Journal of Political Science, 65(4), 1007–1022."
+  },
+  {
+    "objectID": "slides/03_designed_dbd.html#our-two-required-readings",
+    "href": "slides/03_designed_dbd.html#our-two-required-readings",
+    "title": "Designed Digital Data",
+    "section": "Our two required readings",
+    "text": "Our two required readings\n\n\n\n\nTromble, R. (2021). Where Have All the Data Gone? A Critical Reflection on Academic Digital Research in the Post-API Age. Social Media + Society, 7(1).\n\n\n\n\nSilber, H., Breuer, J., Beuthner, C., Gummer, T., Keusch, F., Siegers, P., Stier, S., & Weiß, B. (2022). Linking Surveys and Digital Trace Data: Insights From two Studies on Determinants of Data Sharing Behaviour. Journal of the Royal Statistical Society Series A: Statistics in Society, 185(Supplement_2), S387–S407."
+  },
+  {
+    "objectID": "slides/03_designed_dbd.html#guiding-questions",
+    "href": "slides/03_designed_dbd.html#guiding-questions",
+    "title": "Designed Digital Data",
+    "section": "Guiding questions:",
+    "text": "Guiding questions:\n\n- Describe what problem or question these papers address and the main contributions that they make towards a solution or answer. \n\n- Reflect on the main strengths and weaknesses of these papers.\n\n- What are the concepts, assumed social mechanisms and operationalizations used in the papers?\n\n- What are the data in use? How are the data analyzed? Does this seem appropriate?\n\n- How convincing do you find the arguments presented by the authors? Are the conclusions backed up by the empirical results?\n\n- Do you see any ethical concerns?\n\n- If applicable, are there commonalities or differences between the two papers?"
+  },
+  {
+    "objectID": "slides/03_designed_dbd.html#think-pair-share",
+    "href": "slides/03_designed_dbd.html#think-pair-share",
+    "title": "Designed Digital Data",
+    "section": "Think-pair-share",
+    "text": "Think-pair-share\n\nDiscuss the literature for today with your neighbor (5 min.)\nFocus on the presented solutions for data collection, their pros and cons, feasibility, etc.\nShare and discuss your results with the full class"
+  },
+  {
+    "objectID": "slides/03_designed_dbd.html#the-data-we-will-use-today",
+    "href": "slides/03_designed_dbd.html#the-data-we-will-use-today",
+    "title": "Designed Digital Data",
+    "section": "The data we will use today",
+    "text": "The data we will use today\n\n\nWojcieszak, M., Clemm Von Hohenberg, B., Casas, A., Menchen-Trevino, E., De Leeuw, S., Gonçalves, A., & Boon, M. (2022). Null effects of news exposure: A test of the (un)desirable effects of a ‘news vacation’ and ‘news binging’. Humanities and Social Sciences Communications, 9(1), 413.\n\n\n\nA toy browsing data set from our OSF repository. It is based on a real data set collected from a US sample in 2019, but reduced to fewer participants and slightly modified for reasons of anonymity (n_subjects = 100; n_visits = 2 million)."
+  },
+  {
+    "objectID": "slides/03_designed_dbd.html#lets-get-started-1",
+    "href": "slides/03_designed_dbd.html#lets-get-started-1",
+    "title": "Designed Digital Data",
+    "section": "Let’s get started",
+    "text": "Let’s get started\n\nDownload file 3_class_three.R in https://sebastianstier.com/ma_css25/material.html"
+  },
+  {
+    "objectID": "slides/03_designed_dbd.html#homework",
+    "href": "slides/03_designed_dbd.html#homework",
+    "title": "Designed Digital Data",
+    "section": "Homework",
+    "text": "Homework\nBrowse through Bauer et al. and explore the options for collecting DBD. If you find the time, try a few of the proposed APIs and code snippets.\n\nhttps://bookdown.org/paul/apis_for_social_scientists/\n\n\n\nWhich APIs did you try out?\nWhich APIs/code still work?\nDid the data help shape your research ideas?"
+  },
+  {
+    "objectID": "slides/03_designed_dbd.html#references",
+    "href": "slides/03_designed_dbd.html#references",
+    "title": "Designed Digital Data",
+    "section": "References",
+    "text": "References"
   },
   {
     "objectID": "material.html",
     "href": "material.html",
     "title": "Computational Social Science and Digital Behavioral Data",
     "section": "",
-    "text": "File Name\n\n\nModified\n\n\n\n\n\n\n0_basics.R\n\n\n2/12/25, 11:04:28 PM\n\n\n\n\n1_class_one.R\n\n\n2/26/25, 10:19:42 AM\n\n\n\n\n2_class_two.R\n\n\n2/26/25, 11:47:47 AM\n\n\n\n\n\nNo matching items"
+    "text": "File Name\n\n\nModified\n\n\n\n\n\n\n0_basics.R\n\n\n2/12/25, 11:04:28 PM\n\n\n\n\n1_class_one.R\n\n\n2/26/25, 10:19:42 AM\n\n\n\n\n2_class_two.R\n\n\n3/11/25, 6:30:56 PM\n\n\n\n\n3_class_three.R\n\n\n3/11/25, 6:30:15 PM\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "material.html#material-for-sessions",
     "href": "material.html#material-for-sessions",
     "title": "Computational Social Science and Digital Behavioral Data",
     "section": "",
-    "text": "File Name\n\n\nModified\n\n\n\n\n\n\n0_basics.R\n\n\n2/12/25, 11:04:28 PM\n\n\n\n\n1_class_one.R\n\n\n2/26/25, 10:19:42 AM\n\n\n\n\n2_class_two.R\n\n\n2/26/25, 11:47:47 AM\n\n\n\n\n\nNo matching items"
+    "text": "File Name\n\n\nModified\n\n\n\n\n\n\n0_basics.R\n\n\n2/12/25, 11:04:28 PM\n\n\n\n\n1_class_one.R\n\n\n2/26/25, 10:19:42 AM\n\n\n\n\n2_class_two.R\n\n\n3/11/25, 6:30:56 PM\n\n\n\n\n3_class_three.R\n\n\n3/11/25, 6:30:15 PM\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "slides.html",
+    "href": "slides.html",
+    "title": "Computational Social Science and Digital Behavioral Data",
+    "section": "",
+    "text": "Date\n\n\nTitle\n\n\nAuthor\n\n\n\n\n\n\nFeb 12, 2025\n\n\nIntroduction\n\n\nSebastian Stier\n\n\n\n\nFeb 26, 2025\n\n\nResearch Ethics in CSS and Web Data Collection\n\n\nSebastian Stier\n\n\n\n\nMar 12, 2025\n\n\nDesigned Digital Data\n\n\nSebastian Stier\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "slides.html#slides",
+    "href": "slides.html#slides",
+    "title": "Computational Social Science and Digital Behavioral Data",
+    "section": "",
+    "text": "Date\n\n\nTitle\n\n\nAuthor\n\n\n\n\n\n\nFeb 12, 2025\n\n\nIntroduction\n\n\nSebastian Stier\n\n\n\n\nFeb 26, 2025\n\n\nResearch Ethics in CSS and Web Data Collection\n\n\nSebastian Stier\n\n\n\n\nMar 12, 2025\n\n\nDesigned Digital Data\n\n\nSebastian Stier\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Computational Social Science Methods and Digital Behavioral Data",
+    "section": "",
+    "text": "Lecturer\nSebastian Stier\nProfessor @ University of Mannheim & Scientific Director Department Computational Social Science @ GESIS\n\nAbout the course\nComputational Social Science (CSS) is a young research field at the intersection of various social science disciplines, data science and computer science. The goal is to gain new insights into society through large amounts of data and the direct observation of human behavior. CSS relies on two cornerstones: digital behavioral data, which can be collected from online platforms or sensors like smartphones, and computer science methods such as automated text analysis to create appropriate measures for social science research questions. In the course, students will get to know foundational studies, theories and methods used in the field of CSS. We will discuss infrastructural, ethical and legal challenges and how to navigate these to devise appropriate research designs in CSS.\nThe course will be application oriented. Students will familiarize themselves with the main applications of CSS methods and implement them in R. The range of applications will cover data management and preprocessing, the application of machine learning, data and results visualization, statistical data analysis and the validation of results. The hands-on application examples will cover questions from various research fields and different data types like social media data or web browsing histories. Equipped with this theoretical and methodological toolkit, students will develop their own CSS research projects.\nSchedule\n\n\n\n\n\n\n\n\n\n\n\n\n\nSeminar dates and topics\n\n\nDate\nTopics\nRequired reading\n\n\n\n\n12 February 2025  Room 212, B 6, 30-32 - E-F\n\nIntroduction and expectations\nFoundations of CSS\nGetting started in R\n\nLazer, D., & Radford, J. (2017). Data ex Machina: Introduction to Big Data. Annual Review of Sociology, 43(1), 19–39.\n\n\n26 February 2025  Room 212, B 6, 30-32 - E-F\n\nResearch ethics in CSS\nSocial media, web data and web scraping\nAPIs and web data collection\nData visualization\n\nFiesler, C., & Proferes, N. (2018). ‘Participant’ Perceptions of Twitter Research Ethics. Social Media + Society, 4(1).  Freelon, D. (2018). Computational Research in the Post-API Age. Political Communication, 35(4), 665–668.\n\n\n12 March 2025  Room A 104, B 6, 23-25 A\n\nPlatform-centered and user-centered data collections\nLinked surveys and DBD\nWeb tracking data\n\nTromble, R. (2021). Where Have All the Data Gone? A Critical Reflection on Academic Digital Research in the Post-API Age. Social Media + Society, 7(1).  Silber, H., et al. Linking Surveys and Digital Trace Data: Insights From two Studies on Determinants of Data Sharing Behaviour. Journal of the Royal Statistical Society Series A: Statistics in Society, 185(S2), S387–S407.\n\n\n26 March 2025  Room A 104, B 6, 23-25 A\n\nIntroduction to automated text analysis\nDictionary-based analysis\nValidation of model results\n\nSchwemmer, C., & Wieczorek, O. (2020). The Methodological Divide of Sociology: Evidence from Two Decades of Journal Publications. Sociology, 54(1), 3–21.  Bonikowski, B., Luo, Y., & Stuhler, O. (2022). Politics as Usual? Measuring Populism, Nationalism, and Authoritarianism in U.S. Presidential Campaigns (1952–2020) with Neural Language Models. Sociological Methods & Research, 51(4), 1721–1787.\n\n\n9 April 2025  Room A 104, B 6, 23-25 A\n\nMachine learning\nSupervised and unsupervised models\nLarge Language Models\n\nGilardi, F., Alizadeh, M., & Kubli, M. (2023). ChatGPT outperforms crowd workers for text-annotation tasks. PNAS, 120(30). \nReiss, M. V. (2023). Testing the Reliability of ChatGPT for Text Annotation and Classification: A Cautionary Remark. arXiv Preprint.\n\n\n30 April 2025  Room A 104, B 6, 23-25 A\n\nOpen science and reproducibility in CSS\nWriting reproducible research papers in R\nPresentations of thesis ideas (1st round)\n\nChan, C.- Hong, Schatto-Eckrodt, T., & Gruber, J. (2024). What makes computational communication science (ir)reproducible? Computational Communication Research, 6(1).  Sen, I., Flöck, F., Weller, K., Weiß, B., & Wagner, C. (2021). A Total Error Framework for Digital Traces of Human Behavior on Online Platforms. Public Opinion Quarterly, 85(S1), 399–422.\n\n\n14 May 2025  Room A 104, B 6, 23-25 A\n\nPresentations of thesis ideas (2nd round)\nCoding: troubleshooting\n\nBauer, P. C., & Landesvatter, C. (2023). Writing a reproducible paper with RStudio and Quarto. OSF Preprint.\n\n\n\n\n\n\n\nSoftware\n\nR\nA text editor, e.g. RStudio\nQuarto"
   },
   {
     "objectID": "slides/01_introduction.html#about-me",

@@ -1,13 +1,14 @@
 [
   {
+    "listing": "/material.html",
+    "items": []
+  },
+  {
     "listing": "/slides.html",
     "items": [
       "/slides/01_introduction.html",
-      "/slides/02_ethics_and_webdata.html"
+      "/slides/02_ethics_and_webdata.html",
+      "/slides/03_designed_dbd.html"
     ]
-  },
-  {
-    "listing": "/material.html",
-    "items": []
   }
 ]
