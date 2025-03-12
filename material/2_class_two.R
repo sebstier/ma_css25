@@ -6,7 +6,6 @@
 #' date: "2025-02-26"
 
 
-
 # YouTube API ----
 library(tuber)
 # If you want to use this, do your API verification here: 
@@ -30,21 +29,47 @@ df_yt <- get_comment_threads(c(video_id = "IXDR2-WWY5Y"), max_results = 20)
 
 
 # Data visualization using gapminder data ----
-library(ggplot2) # ggplot2 is part of the tidyverse and should already be loaded
+library(tidyverse)
+#library(ggplot2) # ggplot2 is part of the tidyverse and should already be loaded
 library(gapminder)
 
-# Create a scatter plot of lifeExp and gdpPercap
-
+# Create a scatter plot / point diagram of lifeExp and gdpPercap
+ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp)) +
+  geom_point() +
+  scale_x_log10()
 
 # Save the plot
+#ggsave saves the plot that is shown
+ggsave("plots/example_plot.png", width = 8, height = 6.5, dpi = 800) # dpi increases the quality
+ggsave("plots/example_plot.pdf", width = 8, height = 6.5) #fig1_gdpcap_lifeExp.png
 
+# A more specific way to save specific plots
+p1 <- ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp)) +
+  geom_point() +
+  scale_x_log10()
+ggsave(plot = p1, 
+       filename = "plots/example_plot.pdf", width = 8, height = 6.5) #fig1_gdpcap_lifeExp.png
 
-# Create a bar chart showing the GDP/Capita of European countries in the year 2007
+# Calculate the (worldwide) average GDP per capita per year per continent
+# Plot this as a bar chart
+table(gapminder$year)
+gapminder %>% 
+  group_by(year, continent) %>% 
+  summarise(mean_gdp = mean(gdpPercap)) %>% 
+  #filter(year == 1972)
+  ggplot(aes(x = year, y = mean_gdp, fill = continent)) +
+  #geom_bar(stat = "identity") # equivalent to geom_col
+  geom_col()
 
-
-# Calculate the (worldwide) average GDP per capita per year and plot this as a bar chart
-# Sum the total world population per year. Plot the results in a bar chart for the years 1992-2007
-
+# mutate vs summarise
+gapminder %>% 
+  group_by(year, continent) %>% 
+  summarise(mean_gdp = mean(gdpPercap)) %>% 
+  filter(year == 1972)
+gapminder %>% 
+  group_by(year, continent) %>% 
+  mutate(mean_gdp = mean(gdpPercap)) %>% 
+  filter(year == 1972)
 
 # Trump Twitter Archive ----
 
@@ -52,8 +77,8 @@ library(gapminder)
 # https://drive.google.com/file/d/1xRKHaP-QwACMydlDnyFPEaFdtskJuBa6/view
 library(tidyverse)
 list.files("data")
-df_trump <- read_csv("data/tweets_01-08-2021.csv")
-glimpse(df_trump)
+#df_trump <- read_csv("data/tweets_01-08-2021.csv")
+#glimpse(df_trump)
 df_trump <- read_csv("data/tweets_01-08-2021.csv",
                      col_types = "ccllcddTl")
 # df_trump <- read.csv("data/tweets_01-08-2021.csv", 
@@ -87,38 +112,74 @@ df_trump %>%
             mean_favorites = mean(favorites),
             median_favorites = median(favorites)) %>% 
   arrange(desc(sum_favorites))
+#Number of days in the raw data
+df_trump <- df_trump %>% 
+  mutate(day = as.Date(date))
+n_distinct(df_trump$day)
 
-# TODO continue here next time
 
 # Some basic text operations ----
 
 # Let's explore the function ?str_detect
 # Some tests
-test_vec <- c("fakenews", "fake", "FAKE", "FakE", "FAKENEWS", "gesetz", "wahl", "bundestagswahl")
+test_vec <- c("fakenews", "fake", "FAKE", "FakE", "FAKENEWS", 
+              "gesetz", "wahl", "bundestagswahl")
 tolower(test_vec)
 toupper(test_vec)
+test_vec
 str_detect(test_vec, "fake")
+str_detect(tolower(test_vec), "fake")
+
+# Let's apply to gapminder: let's detect countries based on name patterns
+test <- gapminder %>% 
+  filter(str_detect(tolower(country), "ger")) %>% 
+  as.data.frame()
+View(test)
+
+as.data.frame(gapminder)
+gapminder
+head(as.data.frame(gapminder), 10)
 
 # Calculate the occurrence of the words "crazy" or "fake" across devices
+table(df_trump$device)
+names(df_trump)
+df_trump %>% 
+  mutate(text_lower = tolower(text),
+         fake = str_detect(text_lower, "fake"),
+         crazy = str_detect(text_lower, "crazy")) %>% 
+  # and calculate the share of tweets per device that contain either "crazy" or "fake"
+  group_by(device) %>% 
+  summarise(total_tweets = n(),
+            sum_crazy = sum(crazy),
+            sum_fake = sum(fake),
+            share_crazy_fake = (sum_crazy+sum_fake) / total_tweets*100)
+table(df_trump$device)
+  
+# What does the n() do?
+df_trump %>% 
+  summarise(n = n())
+nrow(df_trump)
+df_trump %>% 
+  group_by(device) %>% 
+  summarise(n = n())
 
 
 # Visualizing the Trump tweets dataset ----
 
-# Use mutate() to create a variable indicating that the tweet was sent via 
-#iPhone or Android or another device
+# Create a time series plot of the daily share of "fake" over time
+# 1) mutate: create day as.Date()
+# 2) mutate: lower(text)
+# 3) mutate: create fake
+# 3) group_by day
 
-
-# Calculate the share of tweets per device that contain either "crazy" or "fake"
-
-
-# Create a subset of the data that contains the tweets with either "crazy" or "fake"
-
-
-
-# Add the variables to the data frame
-
-# Create a time series plot of the daily share of "crazy" and "fake" over time
-
-
-
+df_trump %>% 
+  mutate(day = as.Date(date),
+         fake = str_detect(tolower(text), "fake")) %>% 
+  group_by(day) %>%
+  summarise(sum_fake = sum(fake),
+            total_tweets = n(),
+            share_fake = sum_fake/total_tweets) %>% 
+  ggplot(aes(x = day, y = sum_fake)) +
+  geom_point() +
+  geom_smooth()
 

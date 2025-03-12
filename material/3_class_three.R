@@ -20,11 +20,21 @@ download.file(url = "https://osf.io/download/jyfru/", destfile = filename)
 load(filename)
 rm(filename)
 
-# Save and load the data in csv, rds, Rda
-
+# Load the data
+# different ways of storing data
+# save() load() #rda
+# write_rds() read_rds() #rds from the tidyverse
+# write_csv read_csv() #csv from the tidyverse 
+list.files("data")
+load("data/toy_browsing.rda")
+load("data/toy_survey.rda")
 
 # Create object df_wt for further analysis
-df_wt <- toy_browsing
+df_wt <- toy_browsing %>% 
+  as_tibble()
+table(df_wt$wave)
+
+# START OF HOMEWORK
 
 # Explore the dataset: what is the number of rows, columns, unique persons, 
 # what is the covered date range?
@@ -38,12 +48,25 @@ df_wt <- toy_browsing
 
 # Plot a time series of the number of visits per day
 
+# END OF HOMEWORK ----
 
 # Exercise 2: Domain augmentation of the web tracking data ----
 
 # What are the top ten visited domains in the data?
 ## Install the R package adaR: https://gesistsa.github.io/adaR/
+library(adaR)
 ## Apply the relevant function from the package to extract domains from URLs
+glimpse(df_wt)
+df_wt <- df_wt %>% 
+  mutate(domain = adaR::ada_get_domain(url))
+
+# Rank the domains according to their appearance
+df_wt %>% 
+  group_by(domain) %>% 
+  summarise(n = n()) %>% 
+  arrange(desc(n))
+
+#TODO: We continue here in the next class
 
 
 # Inspect whether there are NAs in domain; what can explain the NAs?
