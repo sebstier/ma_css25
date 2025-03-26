@@ -139,7 +139,7 @@ nrow(news_list)
 # Finally, join the web tracking data with the news lists
 news_list$news <- 1
 nrow(df_wt)
-df_wt <- df_wt %>% 
+df_wt_news <- df_wt %>% 
   left_join(news_list, by = "domain")
 names(news_list)
 nrow(df_wt)
@@ -148,30 +148,30 @@ table(df_wt$news, useNA = "a")
 
 # Identify the web tracking visits whose URL contains "trump"
 ## hint: ?str_detect
-df_wt <- df_wt %>% 
+df_wt_news <- df_wt_news %>% 
   mutate(trump = str_detect(url, "trump"))
-table(df_wt$trump)
-df_wt %>% 
+table(df_wt_news$trump)
+df_wt_news %>% 
   group_by(news, trump) %>% 
   summarise(n = n())
 
 # Some more explorations of our new variables: where outside of news websites does trump occur?
 # most popular trump domains
-table(df_wt$news, useNA = "a")
-df_nonnews_trump <- df_wt %>% 
+table(df_wt_news$news, useNA = "a")
+df_nonnews_trump <- df_wt_news %>% 
   filter(trump == TRUE & is.na(news)) 
 df_nonnews_trump %>% 
   group_by(domain) %>% 
   count() %>% 
   arrange(desc(n))
 
-df_wt <- df_wt %>% 
+df_wt_news <- df_wt_news %>% 
   mutate(yahoo_news = str_detect(url, "yahoo.com/news"),
          news_new = case_when(yahoo_news == TRUE ~ 1,
                           news == 1 ~ 1,
                           .default = 0)
          )
-table(df_wt$yahoo_news)
-table(df_wt$news)
-table(df_wt$news_new)
+table(df_wt_news$yahoo_news)
+table(df_wt_news$news)
+table(df_wt_news$news_new)
 

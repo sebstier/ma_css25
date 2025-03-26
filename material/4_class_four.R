@@ -20,6 +20,7 @@ df_trump <- df_trump %>%
 library(quanteda)
 
 # Create a corpus of Trump tweets 
+glimpse(df_trump)
 corp_trump <- corpus(df_trump, text_field = "text", docid_field = "id")
 corp_trump
 nrow(df_trump)
@@ -29,7 +30,7 @@ summary(corp_trump, 5)
 
 # Subset corpus to tweets in the year 2019
 range(corp_trump$day)
-corp_trump_subset <- corpus_subset(corp_trump, date >= "2019-01-01" & date <= "2019-12-31")
+corp_trump_subset <- corpus_subset(corp_trump, date >= "2019-01-02" & date <= "2019-12-31")
 range(corp_trump_subset$date)
 ndoc(corp_trump_subset)
 ndoc(corp_trump)
@@ -58,22 +59,21 @@ toks_bigrams <- tokens_ngrams(toks, n = 2, concatenator = "_")
 toks_bigrams
 
 # Keywords in context
-kw_fake <- kwic(toks, pattern =  "*democra*", window = 4)
-kw_fake
-head(kw_fake, 15)
+kw_fake <- kwic(toks, pattern =  "*bernie*", window = 4)
+head(kw_fake, 13) # a function for printing the output more clearly
 
 # What does the star do?
 test_vec <- c("straße", "straßenverkehrsordnung", "holperstraße", "street", "straßeholper", "straßen", 
               "regelverfahrenstraßenbauen")
 test_toks <- tokens(test_vec)
 kwic(test_toks, pattern = "straße") # only perfect matches
-kwic(test_toks, pattern = "straße*") # word ends with straße
+kwic(test_toks, pattern = "straße*") # word begin with straße
+kwic(test_toks, pattern = "*straße") # word end with straße
 kwic(test_toks, pattern = "*straße*") # any match where straße is included
-kwic(test_toks, pattern = "*straße") # word starts with straße
 
 # Even more context
 kw_fake2 <- kwic(toks, pattern = c("fake", "democr*"), window = 5)
-head(kw_fake2, 15)
+head(kw_fake2, 30)
 
 # Sometimes we are looking for more than one word 
 kw_multiword <- kwic(toks, pattern = phrase(c("fake news", "crazy nancy")))
@@ -85,7 +85,7 @@ stopwords("de")
 stopwords("it")
 stopwords("fr")
 stopwords("es")
-toks_nostop <- tokens_select(toks, pattern = c(stopwords("en"), "rt"), selection = "remove")
+toks_nostop <- tokens_select(toks, pattern = c(stopwords("en"), "rt", "amp"), selection = "remove")
 
 # Also remove urls
 toks_nostop <- tokens(toks_nostop, remove_url = TRUE)
@@ -102,76 +102,3 @@ topfeatures(dfm_nostop, 10, decreasing = TRUE)
 topfeatures(dfm_nostop, 10, decreasing = FALSE)
 
 
-# Scrape and parse web data ----
-library(rvest)
-
-# Load the web tracking data
-load("data/toy_browsing.rda") 
-
-# Subset the web tracking data to visits of the politics section of Fox News
-# df_fox <- 
-nrow(df_fox)
-
-# Create a vector of unique Fox News political URLs
-
-# Read the HTML from a Fox News URL
-webpage <- read_html(urls[1])
-
-# Extract the headline (<h1> tag)
-headline <- webpage %>%
-  html_node("h1") %>%  # Modify the tag based on the website
-  html_text()
-
-# Extract the body text (<p> tag for paragraphs)
-body <- webpage %>%
-  html_nodes("p") %>%  # Modify the tag based on the website structure
-  html_text() %>%
-  paste(collapse = " ")  # Combine paragraphs into a single text
-
-# Show the results
-headline
-body
-
-# Inspect the output
-cat(body)
-
-# Use a for loop to create a data frame with the scraped results from all Fox News URLs
-
-# create an empty data frame
-df_text <- data.frame()
-for (i in 1:5) {
-  
-  # Read the HTML from the page
-  webpage = read_html(urls[i])
-  
-  # Extract the headline (<h1> tag)
-  headline = webpage %>%
-    html_node("h1") %>%  # Modify the tag based on the website
-    html_text()
-  
-  # Extract the body text (<p> tag for paragraphs)
-  body = webpage %>%
-    html_nodes("p") %>%  # Modify the tag based on the website structure
-    html_text() %>%
-    paste(collapse = " ")  # Combine paragraphs into a single text
-  
-  # Save in data frame
-  df_text = df_text %>% 
-    bind_rows(
-      data.frame(url = urls[i],
-                 headline = headline,
-                 body = body)
-    )
-  
-}
-
-# Join the htmls with the web tracking data
-df_fox <- df_fox %>% 
-  left_join(df_text, by = "url")
-
-# Clean the text a little bit
-df_fox <- df_text %>% 
-  mutate(body_clean = str_remove(body, "This material may not be published, broadcast, rewritten,\n      or redistributed. ©2024 FOX News Network, LLC. All rights reserved.\n      Quotes displayed in real-time or delayed by at least 15 minutes. Market data provided by\n      Factset. Powered and implemented by\n      FactSet Digital Solutions.\n      Legal Statement. Mutual Fund and ETF data provided by\n      Refinitiv Lipper.")
-  )
-df_fox$body[5]
-df_fox$body_clean[5]
