@@ -38,15 +38,44 @@ table(df_wt$wave)
 
 # Explore the dataset: what is the number of rows, columns, unique persons, 
 # what is the covered date range?
+glimpse(df_wt)
+nrow(df_wt)  
+ncol(df_wt)
+n_distinct(df_wt$panelist_id)
+length(unique(df_wt$panelist_id))
+range(df_wt$timestamp)
+range(as.Date(df_wt$timestamp))
 
-# Calculate the mean and median number of website visits per wave and device
-
+# Calculate the mean and median number of website visits (number of rows) 
+# per wave and device
+table(df_wt$wave)
+table(df_wt$device)
+df_wt %>% 
+  group_by(panelist_id, wave, device) %>% 
+ # group_by(wave, device) %>% 
+  summarise(n_visits = n()) %>% 
+  ungroup() %>% 
+  group_by(wave, device) %>% 
+  summarise(mean_visits = mean(n_visits),
+            median_visits = median(n_visits))
 
 # How many of the visits happened on mobile vs. desktop for each wave? 
 # What is the share of mobile vs. desktop per wave?
-
+table(df_wt$wave, df_wt$device)
+df_wt %>% 
+  group_by(wave, device) %>% 
+  summarise(total_visits = n()) %>% 
+  group_by(wave) %>% 
+  mutate(wave_n = sum(total_visits),
+         share = total_visits/wave_n)
 
 # Plot a time series of the number of visits per day
+df_wt %>% 
+  mutate(day = as.Date(timestamp)) %>% 
+  group_by(day) %>% 
+  summarise(n_visits = n()) %>% 
+  ggplot2::ggplot(aes(x = day, y = n_visits)) +
+  geom_line()
 
 # END OF HOMEWORK ----
 
@@ -66,20 +95,24 @@ df_wt %>%
   summarise(n = n()) %>% 
   arrange(desc(n))
 
-#TODO: We continue here in the next class
-
-
 # Inspect whether there are NAs in domain; what can explain the NAs?
+table(is.na(df_wt$domain))
+table(df_wt$domain == "nytimes.com")
 
+df_wt %>% 
+  filter(is.na(domain))
+
+## HOMEWORK STARTS
 
 # Summarize the number of total visits, Google and Facebook visits per person
 
-  
 # Merge the survey data with the number of total visits, Google visits and Facebook visits 
 # per panelist_id
 
 
 # Plot the relation of Facebook visits and age with a point diagram
+
+## HOMEWORK ENDS
 
 
 # Exercise 3: Analysis of news website visits ----
@@ -89,6 +122,11 @@ df_wt %>%
 news_list <- read.csv("https://raw.githubusercontent.com/ercexpo/us-news-domains/main/us-news-domains-v2.0.0.csv")
 
 # First, check whether there are duplicates in the news data 
+nrow(news_list)
+news_list <- news_list %>% 
+  as_tibble() %>% 
+  filter(!duplicated(domain))
+nrow(news_list)
 
 # de-duplicate a vector
 unique(c("sebastian", "sebastian", "felix"))
@@ -98,20 +136,42 @@ news_list <- news_list %>%
   filter(!duplicated(domain))
 nrow(news_list)
 
-
 # Finally, join the web tracking data with the news lists
 news_list$news <- 1
-
+nrow(df_wt)
+df_wt <- df_wt %>% 
+  left_join(news_list, by = "domain")
+names(news_list)
+nrow(df_wt)
+names(df_wt)
 table(df_wt$news, useNA = "a")
-
-# Let's create a dummy for news websites
 
 # Identify the web tracking visits whose URL contains "trump"
 ## hint: ?str_detect
-
+df_wt <- df_wt %>% 
+  mutate(trump = str_detect(url, "trump"))
+table(df_wt$trump)
+df_wt %>% 
+  group_by(news, trump) %>% 
+  summarise(n = n())
 
 # Some more explorations of our new variables: where outside of news websites does trump occur?
-
-
 # most popular trump domains
+table(df_wt$news, useNA = "a")
+df_nonnews_trump <- df_wt %>% 
+  filter(trump == TRUE & is.na(news)) 
+df_nonnews_trump %>% 
+  group_by(domain) %>% 
+  count() %>% 
+  arrange(desc(n))
+
+df_wt <- df_wt %>% 
+  mutate(yahoo_news = str_detect(url, "yahoo.com/news"),
+         news_new = case_when(yahoo_news == TRUE ~ 1,
+                          news == 1 ~ 1,
+                          .default = 0)
+         )
+table(df_wt$yahoo_news)
+table(df_wt$news)
+table(df_wt$news_new)
 
