@@ -7,30 +7,62 @@
 
 library(tidyverse)
 library(quanteda)
+library(adaR)
 
 # Load the web tracking data
-load("data/toy_browsing.rda") 
+load("data/toy_browsing.rda")
+load("data/toy_survey.rda")
 
 # HOMEWORK ----
 
 # Summarize the number of total visits, Google and Facebook visits per person
+df_wt <- toy_browsing %>% 
+  mutate(domain = adaR::ada_get_domain(url),
+         google = domain == "google.com",
+         facebook = domain == "facebook.com")
+df_panelist <- df_wt %>% 
+  group_by(panelist_id) %>% 
+  summarise(total_visits = n(),
+            google_visits = sum(google, na.rm = T),
+            facebook_visits = sum(facebook, na.rm = T)
+            )
 
 # Merge the survey data with the number of total visits, Google visits and Facebook visits 
 # per panelist_id
-
+df_panelist_survey <- df_panelist %>% 
+  left_join(toy_survey, by = "panelist_id")
 
 # Plot the relation of Facebook visits and age with a point diagram
+df_panelist_survey %>% 
+  ggplot(aes(x = age, y = facebook_visits)) +
+  geom_point() +
+  geom_smooth()
 
+df_panelist_survey %>% 
+  ggplot(aes(x = facebook_visits)) +
+  geom_histogram()
 
+table(df_panelist_survey$facebook_visits)
+
+# Let's explore
+df_panelist_survey %>% 
+  filter(facebook_visits == 66734)
 
 # Scrape and parse web data ----
 library(rvest)
 
 # Subset the web tracking data to visits of the politics section of Fox News
-# df_fox <- 
+df_fox <- df_wt %>% 
+  as_tibble() %>% 
+  mutate(fox_politics = str_detect(url, "foxnews.com/politics"),
+         foxnews = domain == "foxnews.com") %>% 
+  filter(fox_politics == TRUE)
 nrow(df_fox)
 
 # Create a vector of unique Fox News political URLs
+urls <- unique(df_fox$url)
+nrow(df_fox)
+length(urls)
 
 # Read the HTML from a Fox News URL
 webpage <- read_html(urls[1])
@@ -81,6 +113,8 @@ for (i in 1:5) {
                  body = body)
     )
   
+  Sys.sleep(time = 3)
+  
 }
 
 # Join the htmls with the web tracking data
@@ -89,18 +123,25 @@ df_fox <- df_fox %>%
 
 # Clean the text a little bit
 df_fox <- df_text %>% 
-  mutate(body_clean = str_remove(body, "This material may not be published, broadcast, rewritten,\n      or redistributed. ©2024 FOX News Network, LLC. All rights reserved.\n      Quotes displayed in real-time or delayed by at least 15 minutes. Market data provided by\n      Factset. Powered and implemented by\n      FactSet Digital Solutions.\n      Legal Statement. Mutual Fund and ETF data provided by\n      Refinitiv Lipper.")
+  mutate(body_clean = str_remove(body, "This material may not be published, broadcast, rewritten , or redistributed. ©2025 FOX News Network")
   )
 df_fox$body[5]
 df_fox$body_clean[5]
 
 
 # Group exercise: Create a document-feature-matrix from the Trump tweet corpus ----
+library(quanteda)
+
 # First load the Trump corpus again
 df_trump <- read_csv("data/tweets_01-08-2021.csv", col_types = "ccllcddTl")
 
 # Do all steps in one tidyverse pipe and remove the token "amp"
-# dfm_nostop <-
+dfm_nostop <- corpus(df_trump, text_field = "text", docid_field = "id") %>% 
+  quanteda::tokens(remove_punct = TRUE, 
+                   remove_url = TRUE,
+                   remove_numbers = TRUE) %>% 
+  tokens_select(c(stopwords("en"), "amp", "rt"), selection = "remove") %>% 
+  dfm()
 
 # Inspect
 topfeatures(dfm_nostop)
@@ -108,7 +149,7 @@ topfeatures(dfm_nostop)
 # trim the dfm to only words that appear at least 10 times to make modeling more efficient
 dfm_nostop
 dfm_trimmed <- dfm_nostop %>% 
-  dfm_trim(min_termfreq = 10) 
+  dfm_trim(min_termfreq = 10)
 dfm_trimmed
 
 
@@ -119,7 +160,7 @@ library(quanteda.textplots)
 
 #* Frequency counts ----
 # inspect all of the features via a data frame
-feature_table <- textstat_frequency(dfm_trimmed) %>% 
+feature_table <- textstat_frequency(dfm_trimmed) %>%
   as_tibble()
 feature_table
 nrow(feature_table)
@@ -134,7 +175,7 @@ table(feature_table_grouped$feature == "nancy")
 #* Dictionary analysis ----
 ?dictionary
 dict <- dictionary(list(fake = c("fake", "fake news"),
-                        democrats = c("democr*", "nancy"),
+                        democrats = c("democrat*", "nancy"),
                         republicans = c("repub*", "gop"))
                    )
 dfm_dict <- dfm_lookup(dfm_nostop, dictionary = dict)
@@ -153,59 +194,3 @@ dfm_trimmed %>%
     textstat_keyness() %>% 
     textplot_keyness()
 
-
-# LDA Topic Model ----
-library(seededlda)
-
-# Restrict the number of features further, otherwise running the LDA will take long
-dfm_trimmed <- dfm_nostop %>% 
-  dfm_trim(min_termfreq = 50) # only features that appear at least 50 times
-dfm_trimmed
-
-# set a seed in order to keep the output consistent
-set.seed(111)
-
-# run the LDA Topic Model
-tmod_lda <- textmodel_lda(dfm_trimmed, k = 10)
-terms(tmod_lda, 10)
-df_terms <- terms(tmod_lda, 15)
-View(df_terms)
-
-# Assign topic as a new variable
-dfm_trimmed$topic <- topics(tmod_lda)
-
-# Cross-table the topic frequency
-table(dfm_trimmed$topic)
-
-# Visualize topic model on the web
-library(LDAvis)
-phi <- tmod_lda$phi  # topic-term distribution
-theta <- tmod_lda$theta  # document-topic distribution
-vocab <- featnames(dfm_trimmed) # vocabulary
-doc_length <- rowSums(dfm_trimmed)  # length of each document
-term_frequency <- colSums(dfm_trimmed)  # term frequency
-
-# Create the JSON object for visualization
-json <- LDAvis::createJSON(phi = phi, theta = theta, vocab = vocab, 
-                           doc.length = doc_length, term.frequency = term_frequency)
-
-# Visualize
-LDAvis::serVis(json)
-
-
-# Wordfish ----
-# read in party manifestos of German parties in 2013 and 2017
-corp_ger <- read_rds("https://www.dropbox.com/s/uysdoep4unfz3zp/data_corpus_germanifestos.rds?dl=1")
-summary(corp_ger)
-docvars(corp_ger)
-
-# Remove German stopwords, use only features that occur at least 50 times and create a dfm
-dfm_ger <- corp_ger %>% 
-  tokens(remove_punct = TRUE, remove_numbers = TRUE, remove_url = TRUE) %>% 
-  tokens_select(pattern = stopwords("de"), selection = "remove") %>%
-  dfm() %>%
-  dfm_trim(min_termfreq = 30)
-
-# Run a wordfish model
-model_wf <- textmodel_wordfish(dfm_ger)
-textplot_scale1d(model_wf)
