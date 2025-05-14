@@ -52,7 +52,9 @@ docvars(corp_ger)
 #trimmed to features that occur at least 10 times
 corp_ger_sentences <- corp_ger %>% 
   corpus_reshape(to = "sentences")
-#df_manifesto_sentences <- corp_ger_sentences 
+df_manifesto_sentences <- corp_ger_sentences %>% 
+  tokens() %>% 
+  dfm()
 
 # Download dictionary
 #https://downloads.wortschatz-leipzig.de/etc/SentiWS/SentiWS_v2.0.zip
@@ -84,6 +86,7 @@ weighted_counts <- dfm_sentiment %*% polarity_vector
 
 # Divide by total token count to get average polarity
 avg_polarity <- as.numeric(weighted_counts) / ntoken(dfm_sentiment)
+
 
 # Result as a data frame
 doc_sentiment <- tibble(
